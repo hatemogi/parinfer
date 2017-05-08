@@ -18,8 +18,13 @@
 <div class="sidebar">
   <h1>Par<em>infer</em></h1>
   <div class="credits">
-    <a href="http://twitter.com/shaunlebron">@shaunlebron</a> |
+    원저 <a href="http://twitter.com/shaunlebron">@shaunlebron</a> |
     <a href="https://github.com/shaunlebron/parinfer">GitHub</a>
+  </div>
+  <div class="credits" lang="ko">
+    번역
+    <a href="http://twitter.com/hatemogi">@hatemogi</a> |
+    <a href="https://github.com/hatemogi/parinfer">GitHub</a>
   </div>
   <div id="toc">
     <span class="caption">building table of contents...</a>
@@ -33,14 +38,23 @@
 <div class="wrapper only-mobile">
 <section>
   <h1>Par<em>infer</em></h1>
-  <div class="credits">
+  <div class="credits" lang="en">
     <a href="http://twitter.com/shaunlebron">@shaunlebron</a> |
     <a href="https://github.com/shaunlebron/parinfer">GitHub</a>
   </div>
+  <div class="credits" lang="ko">
+    번역 <a href="http://twitter.com/hatemogi">@hatemogi</a> |
+    <a href="https://github.com/hatemogi/parinfer">GitHub</a>
+  </div>
 
-<div class="interact">
+<div class="interact" lang="en">
 <i class="fa fa-desktop fa-lg"></i>
 <strong>Best viewed</strong> on wide desktop browsers.  Sorry for the inconvenience.
+</div>
+
+<div class="interact" lang="ko">
+<i class="fa fa-desktop fa-lg"></i>
+데스크탑 브라우저에 <strong>최적화돼</strong> 있습니다. 양해 바랍니다.
 </div>
 
 </section>
@@ -50,42 +64,54 @@
 
 <div class="wrapper">
 <section>
-<p class="subtitle">
+<p class="subtitle" lang="en">
 Let's simplify the way we write Lisp...
 </p>
+<p class="subtitle" lang="ko">
+리스프 코드 작성하는 방법을 간편히 한다면...
+</p>
 
-<div class="interact">
+<div class="interact" lang="en">
 <i class="fa fa-keyboard-o fa-lg"></i>
 <strong>Try it!</strong> Interrupt the animations below to try it for yourself. Click outside to restore it.
+</div>
+<div class="interact" lang="ko">
+<i class="fa fa-keyboard-o fa-lg"></i>
+<strong>직접 해봐요!</strong> 아래 애니메이션에 끼어들어 직접 써보세요. 바깥을 클릭하면 원래대로 복구됩니다.
 </div>
 
 
 <div>
-<div class="caption"><strong>Parinfer's "Indent Mode"</strong> rearranges parens when you change indentation:</div>
+<div class="caption" lang="en"><strong>Parinfer's "Indent Mode"</strong> rearranges parens when you change indentation:</div>
+<div class="caption" lang="ko"><strong>Parinfer의 "들여쓰기 모드"(Indent Mode)</strong>는 여러분이 들여쓰기를 바꾸는대로 괄호를 재정렬해줍니다.</div>
 <textarea id="code-intro-indent">
 </textarea>
 </div>
 
 <div>
-<div class="caption"><strong>Insert or delete a line</strong> without rearranging parens:</div>
+<div class="caption" lang="en"><strong>Insert or delete a line</strong> without rearranging parens:</div>
+<div class="caption" lang="ko">괄호를 건드릴 필요 없이, <strong>한 줄을 추가하거나 삭제해</strong>보세요:</div>
 <textarea id="code-intro-insert">
 </textarea>
 </div>
 
 <div>
-<div class="caption"><strong>Comment a line</strong> without rearranging parens:</div>
+<div class="caption" lang="en"><strong>Comment a line</strong> without rearranging parens:</div>
+<div class="caption" lang="ko">괄호를 신경쓰지 말고, <strong>주석 처리</strong>해보세요:</div>
 <textarea id="code-intro-comment">
 </textarea>
 </div>
 
 <div>
-<div class="caption"><strong>Basic Paredit without hotkeys</strong> thanks to simple paren inference. (wrap, splice, slurp, barf)</div>
+<div class="caption" lang="en"><strong>Basic Paredit without hotkeys</strong> thanks to simple paren inference. (wrap, splice, slurp, barf)</div>
+<div class="caption" lang="ko">괄호추론 기능 덕분에 <strong>별도 단축키 없이도 Paredit의 기본 기능</strong>(wrap, splice, slurp, barf)을 쓸 수 있어요.</div>
 <textarea id="code-intro-paredit">
 </textarea>
 </div>
 
 <div>
-<div class="caption"><strong>Preserve indentation</strong> when editing in "Paren Mode":</div>
+<div class="caption" lang="en"><strong>Preserve indentation</strong> when editing in "Paren Mode":</div>
+<div class="caption" lang="ko">"괄호 모드"(Paren Mode)에서는 <strong>들여쓰기를 유지</strong>한 채 편집하기 편해요:</div>
 <textarea id="code-intro-paren">
 </textarea>
 </div>
@@ -97,18 +123,27 @@ Let's simplify the way we write Lisp...
 <div class="wrapper fold">
 <section>
 
-<p>
+<p lang="en">
 <span class="title">Parinfer</span> is a proof-of-concept editor mode for Lisp
 programming languages.  It simplifies the way we write Lisp by auto-adjusting
 parens when indentation changes and vice versa. The hope is to make basic
 Lisp-editing easier for newcomers and experts alike, while still allowing
 existing plugins like Paredit to satisfy the need for more advanced operations.
 </p>
+<p lang="ko">
+  <span class="title">Parinfer</span>는 리스프 프로그래밍 언어를 위한 개념 증명 단계의 에디터 모드입니다. 리스프 코드를 작성할 때, 들여쓰기를 바꾸면 괄호를 자동으로 맞춰주며 그 반대로도 작동합니다. 리스프 입문자들도 전문가처럼 코드를 작성하기 쉽게 해주면서도, Paredit같은 기존 플러그인의 고급 기능을 쓰는 것도 가능합니다.
+</p>
 
-<ul>
+<ul lang="en">
   <li>Source code: <a href="http://github.com/shaunlebron/parinfer">http://github.com/shaunlebron/parinfer</a><br>
   <li>Created by: <a href="http://twitter.com/shaunlebron">@shaunlebron</a><br>
   <li>Download (work in progress): <a href="#editor-plugins">Editor Plugins</a>
+</ul>
+<ul lang="ko">
+  <li>소스 코드: <a href="http://github.com/shaunlebron/parinfer">http://github.com/shaunlebron/parinfer</a><br>
+  <li>작성자: <a href="http://twitter.com/shaunlebron">@shaunlebron</a><br>
+  <li>번역: <a href="http://twitter.com/hatemogi">@hatemogi</a><br>
+  <li>다운로드 (미완성): <a href="#editor-plugins">각종 에디터 플러그인</a>
 </ul>
 
 <div class="interact">
