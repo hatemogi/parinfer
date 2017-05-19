@@ -131,7 +131,7 @@ Lisp-editing easier for newcomers and experts alike, while still allowing
 existing plugins like Paredit to satisfy the need for more advanced operations.
 </p>
 <p lang="ko">
-  <span class="title">Parinfer</span>는 리스프 프로그래밍 언어를 위한 개념 증명 단계의 에디터 모드입니다. 리스프 코드를 작성할 때, 들여쓰기를 바꾸면 괄호를 자동으로 맞춰주며 그 반대로도 작동합니다. 리스프 입문자들도 전문가처럼 코드를 작성하기 쉽게 해주면서도, Paredit같은 기존 플러그인의 고급 기능을 쓰는 것도 가능합니다.
+  <span class="title">Parinfer</span>는 리스프 프로그래밍 언어를 위한 개념 증명 단계의 에디터 모드입니다. 리스프 코드를 작성할 때, 들여쓰기를 바꾸면 괄호를 자동으로 맞춰주며 그 반대로도 작동합니다. 리스프 입문자들도 전문가처럼 코드를 작성하기 쉽게 해주면서도, Paredit같은 기존 플러그인의 고급 기능을 같이 쓰는 것도 가능합니다.
 </p>
 
 <ul lang="en">
@@ -146,9 +146,13 @@ existing plugins like Paredit to satisfy the need for more advanced operations.
   <li>다운로드 (미완성): <a href="#editor-plugins">각종 에디터 플러그인</a>
 </ul>
 
-<div class="interact">
+<div class="interact" lang="en">
 <i class="fa fa-book fa-lg"></i>
 <strong>Read on</strong> for a full exploration of the motivations, rules, and effects of Parinfer.
+</div>
+<div class="interact" lang="ko">
+<i class="fa fa-book fa-lg"></i>
+Parinfer의 동기, 규칙, 효과를 더 자세히 알아보시려면 <strong>계속 읽어주세요</strong>.
 </div>
 
 </section>
@@ -158,9 +162,9 @@ existing plugins like Paredit to satisfy the need for more advanced operations.
 
 <div class="wrapper">
 <section id="introduction">
-<h2>Introduction</h2>
+<h2 lang="en">Introduction</h2>
 
-<p>
+<p lang="en">
 <strong>Lisp is often dismissed</strong> as an undesirable programming syntax
 due to excessive parentheses.  Those who have adopted Lisp have long recognized its
 amazing strengths, but there is still a widely held uncertainty among newcomers about
@@ -168,7 +172,7 @@ how or even <em>why</em> we must manage so many parens.  As a result, Lisp's
 unique power remains invisible to most under this guise of difficulty.
 </p>
 
-<p>
+<p lang="en">
 <strong>Newcomers aren't satisfied</strong> with the current tools designed for
 editing Lisp.  Expert-level editors (Emacs, Vim) and advanced hotkeys (Paredit)
 are powerful but steepen the learning curve.  And alternative syntaxes (Lisps
@@ -176,7 +180,7 @@ without parens) have faltered since they sacrifice some of Lisp's power that
 seasoned users aren't willing to part with.
 </p>
 
-<p>
+<p lang="en">
 <strong>Parinfer is a new system</strong> that tries instead to fix this
 problem at its source.  We formally define the relationship between Parens and
 Indentation. With it, we create an intuitive editor mode to make paren
@@ -184,7 +188,7 @@ management fun and easy without sacrificing power.  We demonstrate this through
 interactive proof-of-concept demos here, providing capabilities for:
 </p>
 
-<ul class="features">
+<ul lang="en" class="features">
 <li> making code auto-adhere to formatting conventions
 <li> influencing expression-nesting with indentation
 <li> maintaining indentation when expressions shift
@@ -193,7 +197,7 @@ interactive proof-of-concept demos here, providing capabilities for:
 features without hotkeys
 </ul>
 
-<blockquote class="aside">
+<blockquote class="aside" lang="en">
 <p>
 <strong>NOTE: When I say "parens"</strong> (parentheses), I also mean <em>[square]</em> or <em>{curly}</em>
 brackets.  Some Lisps (e.g.
@@ -211,18 +215,18 @@ use these extra delimiters to help visually separate certain constructs.
 
 <div class="wrapper">
 <section id="uncovering-lisp">
-<h3>Uncovering Lisp</h3>
+<h3 lang="en">Uncovering Lisp</h3>
 
-<p>
+<p lang="en">
 Most programming languages have several syntax rules.  Lisp has one:
 everything is a list.  The first element is a function name, and the rest are
 its arguments.  Thus, the language is simply a collection of compile- and
-run-time functions, trivially extensible.
+run-time functions, trivianlly extensible.
 </p>
 
 <div class="two-col">
 <div class="col">
-<div class="caption"><strong>C Style</strong> expressions:</div>
+<div class="caption" lang="en"><strong>C Style</strong> expressions:</div>
 <textarea id="code-c-expr">
 foo(1, 2, 3);
 const a = 1;
@@ -232,7 +236,7 @@ const b = (a == 1) ? 2 : 3;
 </div>
 
 <div class="col">
-<div class="caption"><strong>Lisp Style</strong> expressions:</div>
+<div class="caption" lang="en"><strong>Lisp Style</strong> expressions:</div>
 <textarea id="code-lisp-expr">
 (foo 1 2 3)
 (def a 1)
@@ -242,7 +246,7 @@ const b = (a == 1) ? 2 : 3;
 </div>
 </div>
 
-<p>
+<p lang="en">
 But parentheses in Lisp are infamous for bunching together at the end of long
 expressions. This indentation
 <a href="https://en.wikipedia.org/wiki/Indent_style#Lisp_style">convention</a>
@@ -252,7 +256,7 @@ being on their own lines:
 
 <div class="two-col">
 <div class="col">
-<div class="caption"><strong>C Style</strong> indentation (unusual in Lisp):</div>
+<div class="caption" lang="en"><strong>C Style</strong> indentation (unusual in Lisp):</div>
 <textarea id="code-c-indent">
 (defn foo [a b]
   (let [
@@ -265,7 +269,7 @@ being on their own lines:
 </div>
 
 <div class="col">
-<div class="caption"><strong>Lisp Style</strong> indentation:</div>
+<div class="caption" lang="en"><strong>Lisp Style</strong> indentation:</div>
 <textarea id="code-lisp-indent">
 (defn foo [a b]
   (let [x (+ a b)]
@@ -274,7 +278,7 @@ being on their own lines:
 </div>
 </div>
 
-<p>
+<p lang="en">
 The idea behind this convention is to make every line inform with content
 rather than just parens. Readability is helped by employing a Python-like
 indentation style.  This achieves a sort of balance&mdash; Indentation allows
@@ -282,7 +286,7 @@ you to <em>skim</em> while the parens allow you to <em>inspect</em>:</p>
 
 <div class="two-col">
 <div class="col">
-<div class="caption"><strong>Skim</strong> by focusing on indentation</div>
+<div class="caption" lang="en"><strong>Skim</strong> by focusing on indentation</div>
 <textarea id="code-skim">
 (defn foo [a b]
   (let [x (+ a b)]
@@ -291,7 +295,7 @@ you to <em>skim</em> while the parens allow you to <em>inspect</em>:</p>
 </div>
 
 <div class="col">
-<div class="caption"><strong>Inspect</strong> parens with your cursor when needed</div>
+<div class="caption" lang="en"><strong>Inspect</strong> parens with your cursor when needed</div>
 <textarea id="code-inspect">
 (defn foo [a b]
   (let [x (+ a b)]
@@ -300,7 +304,7 @@ you to <em>skim</em> while the parens allow you to <em>inspect</em>:</p>
 </div>
 </div>
 
-<p>
+<p lang="en">
 Though both <em>perspectives</em> are visible at once, we must focus on one at
 a time.  A
 <a href="https://twitter.com/paulg/status/588511912331055104">LEGO analogy</a>
@@ -311,17 +315,17 @@ checking the parens at the end of a line.
 
 <div class="two-col">
 <div class="col">
-<div class="caption"><strong>Indentation</strong> implies nesting.</div>
+<div class="caption" lang="en"><strong>Indentation</strong> implies nesting.</div>
 <img class="lego-img" src="img/lego-indent.png">
 </div>
 
 <div class="col">
-<div class="caption"><strong>Tilting</strong> clarifies nesting (close-parens shown).</div>
+<div class="caption" lang="en"><strong>Tilting</strong> clarifies nesting (close-parens shown).</div>
 <img class="lego-img" src="img/lego-parens.png">
 </div>
 </div>
 
-<p>
+<p lang="en">
 This is a physical analog to the way we read Lisp code.  Now let's look at the
 space of tooling solutions that we use for <em>writing</em> Lisp code and
 specifically how Parinfer can help.
@@ -334,27 +338,27 @@ specifically how Parinfer can help.
 
 <div class="wrapper">
 <section id="tools-for-writing-lisp">
-<h3>Tools for Writing Lisp</h3>
+<h3 lang="en">Tools for Writing Lisp</h3>
 
-<p>
+<p lang="en">
 In the previous section, we saw how Parens and Indentation provide two
 perspectives for reading Lisp code.  Unfortunately, this incurs some redundancy
 when <em>writing</em> Lisp since we must edit both for every change, ensuring
 that one will correctly imply the other.
 </p>
 
-<p>
+<p lang="en">
 There are existing tools to help with this.  To best represent how Parinfer
 compares to them, we will represent this complex space of tooling in a way that
 can be visually compared below.
 </p>
 
-<div class="interact">
+<div class="interact" lang="en">
 <i class="fa fa-gear fa-lg"></i>
 <strong>The black gear</strong> represents the current action we are taking.
 </div>
 
-<p>
+<p lang="en">
 <strong>The menial and default</strong> way to edit Lisp is to manually ensure
 our parens are balanced after inserting or removing them.  Then, we adjust the
 indentation to match it in kind.  This back-and-forth happens for most editing
@@ -364,7 +368,7 @@ tasks.
 <div class="gearbox" id="naive-gears">
 </div>
 
-<p>
+<p lang="en">
 <strong>Existing tools automate</strong> some of these editing tasks.
 For example, <em>Paredit</em> forces you to transform or add parens in a
 balanced way through special hotkeys.  And <em>Auto-indent</em> allows you to
@@ -374,7 +378,7 @@ the tasks, but the back-and-forth actions are still manually triggered.</p>
 <div class="gearbox" id="helper-gears">
 </div>
 
-<p>
+<p lang="en">
 <strong>Parinfer is a new tool to <em>combine and simplify</em></strong> this
 type of automation by naturally keeping Parens and Indentation in lockstep.  It
 formally <em>infers</em> changes to one based on the other.  The back-and-forth
@@ -391,9 +395,9 @@ actions have been reduced with special modes, which we will explore next.
 
 <div class="wrapper">
 <section id="writing-with-parinfer">
-<h3>Writing with Parinfer</h3>
+<h3 lang="en">Writing with Parinfer</h3>
 
-<p>
+<p lang="en">
 As we saw with the previous visualization, Parinfer will infer some changes to
 keep Parens and Indentation inline with one another.  To keep this inference
 simple and predictable, we have the user explicitly choose the degree of
@@ -401,33 +405,33 @@ freedom that <em>they</em> want full control of, while relinquishing some
 control of the other to <em>Parinfer</em>.
 </p>
 
-<p>
+<p lang="en">
 Thus, Parinfer consists of two modes:
 </p>
 
 <ol>
-<li>
+<li lang="en">
 <strong>Indent Mode</strong> gives you full control of indentation, while
 Parinfer corrects parens.<br>
 </li>
-<li>
+<li lang="en">
 <strong>Paren Mode</strong> gives you full control of parens, while Parinfer
 corrects indentation.<br>
 </li>
 </ol>
 
-<div class="interact">
+<div class="interact" lang="en">
 <i class="fa fa-lightbulb-o fa-lg"></i>
 <strong>To make this easier</strong>, Indent Mode is default. Paren Mode can be an advanced option.
 </div>
 
-<p>
+<p lang="en">
 Some noteworthy unintended use-cases which we will explore later:
 </p>
 
 <ul>
-  <li>Indent Mode allows Paredit-like features without hotkeys.</li>
-  <li>Paren Mode can be used to fix incorrectly indented files before using with Indent Mode.</li>
+  <li lang="en">Indent Mode allows Paredit-like features without hotkeys.</li>
+  <li lang="en">Paren Mode can be used to fix incorrectly indented files before using with Indent Mode.</li>
 </ul>
 
 </section>
@@ -437,24 +441,24 @@ Some noteworthy unintended use-cases which we will explore later:
 
 <div class="wrapper">
 <section id="mathematical-foundation">
-<h3>Mathematical Foundation</h3>
+<h3 lang="en">Mathematical Foundation</h3>
 
-<div class="interact">
+<div class="interact" lang="en">
 <i class="fa fa-rocket fa-lg"></i>
 <strong>Feel free to <a href="#indent-mode">skip this</a></strong> if you have no interest in the math that makes Parinfer possible.
 </div>
 
-<p>
+<p lang="en">
 The foundation of Parinfer relies on a few somewhat formalized definitions and
 properties:
 </p>
 
 <div class="math-page mathjax">
-<p>
+<p lang="en">
 We wish to define properties that each Parinfer mode should exhibit.
 </p>
 
-<p>
+<p lang="en">
 With the following definitions:
 <ul>
   <li>$I$ = (Indent Mode) function accepting code text and returning new text.</li>
@@ -463,7 +467,7 @@ With the following definitions:
 </ul>
 </p>
 
-<p>
+<p lang="en">
 The following should be true:
 <ul>
   <li>let $y = P(x)$
@@ -506,7 +510,7 @@ The following should be true:
 
 </div>
 
-<p class="mathjax">
+<p class="mathjax" lang="en">
 The actual operations performed by the modes rely on a formal definition
 of what it means for Lisp code to be "correctly formatted".  We establish an
 invariant&mdash; something that must be true for every line of code.  From that,
@@ -514,29 +518,29 @@ Parinfer corrects indentation or parens simply by choosing correct values for
 $i_n$ or $p_n$ (defined later) to satisfy this invariant:
 </p>
 
-<ul class="mathjax">
+<ul class="mathjax" lang="en">
   <li><strong>Indent Mode</strong> forces correct values of $p_n$</li>
   <li><strong>Paren Mode</strong> forces correct values of $i_n$</li>
 </ul>
 
-<p>
+<p lang="en">
 The following is a concise reference (not a guide) to establishing this
 invariant that Parinfer's modes rely on.
 </p>
 
 <div class="math-page mathjax">
-<p>
+<p lang="en">
 We wish to define necessary conditions for determining if a given file of Lisp
 code is "correctly formatted".
 </p>
 
-<p>
+<p lang="en">
 We start with a clarification that we only consider non-empty lines (i.e. lines
 that have at least one non-whitespace, non-comment token).  Thus, all following
 references to line number $n$ will refer to the $n$th non-empty line.
 </p>
 
-<p>
+<p lang="en">
 To proceed, we define the following:
 
 <ul>
@@ -555,7 +559,7 @@ $s_n$ = (stack) index of x-positions of all open-parens unclosed before $t_n[-p_
 </ul>
 </p>
 
-<p>
+<p lang="en">
 Next, we define a function which determines if a line's indentation is valid:
 
 <ul>
@@ -565,7 +569,7 @@ Next, we define a function which determines if a line's indentation is valid:
 </ul>
 </p>
 
-<p>
+<p lang="en">
 where:
 <ul>
   <li>$x_\text{min} = \begin{cases} s[-p-1] & \text{if } |s| > p, \\ -1 & \text{otherwise} \end{cases}$
@@ -582,11 +586,11 @@ where:
 </p>
 
 
-<p>
+<p lang="en">
 Finally, we define that a file of Lisp code is "correctly formatted" if:
 
 <ol>
-  <li>for every line $n > 0$:
+  <li lang="en">for every line $n > 0$:
     <ul>
       <li>$t_n[0] \ne $ ")", and
         <div class="side-note">
@@ -600,7 +604,7 @@ Finally, we define that a file of Lisp code is "correctly formatted" if:
       </li>
     </ul>
   </li>
-  <li>and for the last line $N$
+  <li lang="en">and for the last line $N$
     <ul>
       <li>$|s_N| = p_N$
         <div class="side-note">
@@ -614,19 +618,19 @@ Finally, we define that a file of Lisp code is "correctly formatted" if:
 
 </div>
 
-<p>
+<p lang="en">
 These rules are necessary and sufficient for determining when indentation is
 what we consider "unambiguous", but they are not sufficient in determining if
 code is "pretty". For example:
 
 <ul>
-<li>single-line files are okay</li>
-<li>"tab" lengths are flexible (one space, two spaces, etc)</li>
-<li>indentation of sibling lines are not required to be aligned</li>
+<li lang="en">single-line files are okay</li>
+<li lang="en">"tab" lengths are flexible (one space, two spaces, etc)</li>
+<li lang="en">indentation of sibling lines are not required to be aligned</li>
 </ul>
 </p>
 
-<p>
+<p lang="en">
 Formal descriptions of the actual operations performed by the modes are
 pending, but informal ones follow in their respective sections below.
 </p>
@@ -638,45 +642,45 @@ pending, but informal ones follow in their respective sections below.
 
 <div class="wrapper">
 <section id="indent-mode">
-<h2>Indent Mode</h2>
+<h2 lang="en">Indent Mode</h2>
 
-<p>
+<p lang="en">
 Indent Mode gives you full control of indentation, while Parinfer corrects or
 inserts close-parens where appropriate.  Specifically, it only touches the
 groups of close-parens at the end of each line.  As a visual cue, we
 <em>slightly dim</em> these parens to signify their inferred nature.
 </p>
 
-<div class="interact">
+<div class="interact" lang="en">
 <i class="fa fa-keyboard-o fa-lg"></i>
 <strong>Try it!</strong> Interrupt the animations below to try it for yourself. Click outside to restore it.
 </div>
 
 <div>
-<div class="caption"><strong>Indent</strong> to influence the structure of your code:</div>
+<div class="caption" lang="en"><strong>Indent</strong> to influence the structure of your code:</div>
 <textarea id="code-indent">
 </textarea>
 </div>
 
 <div>
-<div class="caption"><strong>Indent further</strong> to reach different thresholds:</div>
+<div class="caption" lang="en"><strong>Indent further</strong> to reach different thresholds:</div>
 <textarea id="code-indent-far">
 </textarea>
 </div>
 
 <div>
-<div class="caption"><strong>Indent multiple lines</strong> to see its effect:</div>
+<div class="caption" lang="en"><strong>Indent multiple lines</strong> to see its effect:</div>
 <textarea id="code-indent-multi">
 </textarea>
 </div>
 
-<p>
+<p lang="en">
 You can select multiple lines and adjust their indentation the standard way using
 the controls below.  If you are familiar with Paredit, these operations are
 roughly equivalent to those listed.
 </p>
 
-<table class="paredit-table">
+<table class="paredit-table" lang="en">
 <tr>
 <th>Controls</th>
 <th>Description</th>
@@ -700,15 +704,15 @@ roughly equivalent to those listed.
 
 <div class="wrapper">
 <section id="interesting-consequences">
-<h3>Interesting Consequences</h3>
+<h3 lang="en">Interesting Consequences</h3>
 
-<div>
+<div lang="en">
 <div class="caption"><strong>Insert or delete a line</strong> without rearranging parens:</div>
 <textarea id="code-line">
 </textarea>
 </div>
 
-<div>
+<div lang="en">
 <div class="caption"><strong>Comment a line</strong> without rearranging parens:</div>
 <textarea id="code-comment">
 </textarea>
@@ -720,24 +724,24 @@ roughly equivalent to those listed.
 
 <div class="wrapper">
 <section id="indent-how-it-works">
-<h3>How it works</h3>
+<h3 lang="en">How it works</h3>
 
-<p>
+<p lang="en">
 We perform the following steps to rearrange close-parens based on indentation.<br>
 <span class="side-point">We will refer to these later as rules #1, #2, #3 and #4.</span>
 </p>
 
 <ol>
-<li> <span class="removed">remove</span> all unmatched close-parens (for housekeeping)
-<li> <span class="removed">remove</span> all close-parens at the start and end of each line
-<li> <span class="kept">keep</span> all close-parens <em>inside</em> each line
-<li> for every resulting unmatched open-paren:
+<li lang="en"> <span class="removed">remove</span> all unmatched close-parens (for housekeeping)
+<li lang="en"> <span class="removed">remove</span> all close-parens at the start and end of each line
+<li lang="en"> <span class="kept">keep</span> all close-parens <em>inside</em> each line
+<li lang="en"> for every resulting unmatched open-paren:
   <ul>
-  <li> <span class="inserted">insert</span> a matching close-paren at the end of its line or its last non-empty indented line
+  <li lang="en"> <span class="inserted">insert</span> a matching close-paren at the end of its line or its last non-empty indented line
   </ul>
 </ol>
 
-<div class="interact">
+<div class="interact" lang="en">
 <i class="fa fa-keyboard-o fa-lg"></i>
 <strong>Try it!</strong> Edit the code below on the left to see how parens are inferred on the right.
 </div>
@@ -745,7 +749,7 @@ We perform the following steps to rearrange close-parens based on indentation.<b
 
 <div class="two-col">
 <div class="col">
-<div class="caption"><strong>Input:</strong> close-parens are removed or kept.</div>
+<div class="caption" lang="en"><strong>Input:</strong> close-parens are removed or kept.</div>
 <textarea id="code-indent-input">
 (defn on-click []
   (swap! s update-in [:x] inc)
@@ -761,14 +765,14 @@ We perform the following steps to rearrange close-parens based on indentation.<b
 </textarea>
 </div>
 
-<div class="col">
+<div class="col" lang="en">
 <div class="caption"><strong>Output:</strong> close-parens are inserted.</div>
 <textarea id="code-indent-output">
 </textarea>
 </div>
 </div>
 
-<p>
+<p lang="en">
 This is the gist of what's happening.  There are more steps performed, but we
 will just explore their effects in the next section.
 </p>
@@ -779,9 +783,9 @@ will just explore their effects in the next section.
 
 <div class="wrapper">
 <section id="paredit-emerges">
-<h3>Paredit emerges</h3>
+<h3 lang="en">Paredit emerges</h3>
 
-<p>
+<p lang="en">
 You should be aware that the steps in the previous section have a side effect on
 what you type.  Interestingly, these effects translate into four of the main
 <a href="">Paredit</a>
@@ -789,13 +793,13 @@ what you type.  Interestingly, these effects translate into four of the main
 </p>
 
 <table class="paredit-table light-keys">
-<tr>
+<tr lang="en">
 <th align="right">Cause</th>
 <th align="center">Effect</th>
 <th align="left">Description</th>
 </tr>
 
-<tr>
+<tr lang="en">
 <td align="right">Insert <kbd>(</kbd></td>
 <td align="center">Wrap</td>
 <td align="left">
@@ -806,9 +810,9 @@ i.e. "wraps" all possible elements to the right of your cursor
 </td>
 </tr>
 
-<tr>
-<td align="right">Insert <kbd>)</kbd></td>
-<td align="center">Barf</td>
+<tr lang="en">
+<td align="right" lang="en">Insert <kbd>)</kbd></td>
+<td align="center" lang="en">Barf</td>
 <td align="left">
 removes the original <kbd>)</kbd> when inserted inside a matching pair
 <div class="side-point">
@@ -817,7 +821,7 @@ i.e. the current list "barfs" out all elements to the right of your cursor
 </td>
 </tr>
 
-<tr>
+<tr lang="en" lang="en">
 <td align="right">Delete <kbd>(</kbd></td>
 <td align="center">Splice</td>
 <td align="left">
@@ -828,7 +832,7 @@ i.e. "splices" the current list into its parent (or simply "unwraps" it)
 </td>
 </tr>
 
-<tr>
+<tr lang="en">
 <td align="right">Delete <kbd>)</kbd></td>
 <td align="center">Slurp</td>
 <td align="left">
@@ -841,7 +845,7 @@ i.e. the current list "slurps" all elements to the right of your cursor
 
 </table>
 
-<p>
+<p lang="en">
 We illustrate these operations in the following examples.
 </p>
 
@@ -852,22 +856,22 @@ We illustrate these operations in the following examples.
 
 <div class="wrapper">
 <section id="inserting-parens">
-<h3>Inserting Parens</h3>
+<h3 lang="en">Inserting Parens</h3>
 
 <div>
-<div class="caption"><strong>Wrap</strong> by inserting an open-paren. It will auto-close as far as it can, due to rule #4.</div>
+<div class="caption" lang="en"><strong>Wrap</strong> by inserting an open-paren. It will auto-close as far as it can, due to rule #4.</div>
 <textarea id="code-wrap">
 </textarea>
 </div>
 
 <div>
-<div class="caption"><strong>Barf</strong> by inserting a close-paren before another.
+<div class="caption" lang="en"><strong>Barf</strong> by inserting a close-paren before another.
 Notice the original is removed, due to rule #1.</div>
 <textarea id="code-barf">
 </textarea>
 </div>
 
-<div class="caption">
+<div class="caption" lang="en">
 <div class="question">
 <i class="fa fa-question-circle"></i>
 Why can't I insert a close-paren in certain places?
@@ -881,21 +885,21 @@ Why can't I insert a close-paren in certain places?
 
 <div class="wrapper">
 <section id="deleting-parens">
-<h3>Deleting Parens</h3>
+<h3 lang="en">Deleting Parens</h3>
 
-<div>
+<div lang="en">
 <div class="caption"><strong>Splice</strong> by removing an open-paren. Its corresponding close-paren is removed, due to rule #1.</div>
 <textarea id="code-splice">
 </textarea>
 </div>
 
 <div>
-<div class="caption"><strong>Slurp</strong> by deleting a close-paren inside a line. It is replaced further down, due to rule #4.</div>
+<div class="caption" lang="en"><strong>Slurp</strong> by deleting a close-paren inside a line. It is replaced further down, due to rule #4.</div>
 <textarea id="code-slurp">
 </textarea>
 </div>
 
-<div class="caption">
+<div class="caption" lang="en">
 <div class="question">
 <i class="fa fa-question-circle"></i>
 Why can't I delete a close-paren in certain places?
@@ -909,9 +913,9 @@ Why can't I delete a close-paren in certain places?
 
 <div class="wrapper">
 <section id="knowing-when-parens-move-in-indent-mode">
-<h3>Knowing When Parens Move</h3>
+<h3 lang="en">Knowing When Parens Move</h3>
 
-<p>
+<p lang="en">
 As a courtesy, <em>Indent Mode</em> will not move your parens until you are done typing
 in front of them.  Just move your cursor away when you're done.  A helpful
 analogy might be to think of your cursor as a <em>paperweight</em> that keeps your
@@ -919,13 +923,13 @@ parens from blowing away.
 </p>
 
 <div>
-<div class="caption"><strong>Paren displaced</strong> when your cursor moves to another line. (displaced due to indentation)</div>
+<div class="caption" lang="en"><strong>Paren displaced</strong> when your cursor moves to another line. (displaced due to indentation)</div>
 <textarea id="code-displaced">
 </textarea>
 </div>
 
 <div>
-<div class="caption"><strong>Paren not displaced</strong> since you were given the chance to block it. (paren not at end of line)</div>
+<div class="caption" lang="en"><strong>Paren not displaced</strong> since you were given the chance to block it. (paren not at end of line)</div>
 <textarea id="code-not-displaced">
 </textarea>
 </div>
@@ -936,16 +940,16 @@ parens from blowing away.
 
 <div class="wrapper">
 <section id="pressing-enter">
-<h3>Pressing Enter</h3>
+<h3 lang="en">Pressing Enter</h3>
 
-<p>
+<p lang="en">
 Pressing enter will result in your cursor moving to an auto-indented line, as
 expected.  Just keep in mind that the inferred parens won't move until you
 actually type something on the new line.
 </p>
 
 <div>
-<div class="caption">
+<div class="caption" lang="en">
 <strong>Watch where the cursor is</strong> when pressing Enter. Inferred parens not displaced until typing. (rule #2)
 </div>
 <textarea id="code-enter">
@@ -958,26 +962,26 @@ actually type something on the new line.
 
 <div class="wrapper">
 <section id="inserting-quotes">
-<h3>Inserting Quotes</h3>
+<h3 lang="en">Inserting Quotes</h3>
 
-<p>
+<p lang="en">
 <em>Parinfer</em> cannot infer anything about quote positions like it can with parens.
 So it doesn't try to do anything special with them, other than abandon
 processing if imbalanced quotes are detected.
 </p>
 
 <div>
-<div class="caption"><strong>Quote</strong> insertion allows temporary paren imbalances until quote is closed:</div>
+<div class="caption" lang="en"><strong>Quote</strong> insertion allows temporary paren imbalances until quote is closed:</div>
 <textarea id="code-string">
 </textarea>
 </div>
 
 <div class="warning">
-<div class="warning-title">
+<div class="warning-title" lang="en">
 <i class="fa fa-lg fa-warning"></i>
 WARNING: Always make sure quotes are balanced when inside comments!
 </div>
-<div class="warning-body">
+<div class="warning-body" lang="en">
 If there is an unclosed quote before a comment, which itself contains
 imbalanced quotes, they will balance each other out and fool <em>Parinfer</em> into
 thinking it is okay for processing.
@@ -987,7 +991,7 @@ thinking it is okay for processing.
 <div class="two-col">
 <div class="col">
 <div class="caption">
-<i class="fa fa-lg fa-times red"></i>
+<i class="fa fa-lg fa-times red" lang="en"></i>
 <strong>BAD:</strong> An unclosed string in a comment can cause corrupted strings.
 </div>
 <textarea id="code-warn-bad">
@@ -995,7 +999,7 @@ thinking it is okay for processing.
 </div>
 
 <div class="col">
-<div class="caption">
+<div class="caption" lang="en">
 <i class="fa fa-lg fa-check green"></i>
 <strong>GOOD</strong>: Balance the quotes in the comment to prevent the problem.
 </div>
@@ -1010,9 +1014,9 @@ thinking it is okay for processing.
 
 <div class="wrapper">
 <section id="paren-mode">
-<h2>Paren Mode</h2>
+<h2 lang="en">Paren Mode</h2>
 
-<p>
+<p lang="en">
 Paren Mode gives you full control of parens, while Parinfer corrects indentation.
 You can still adjust indentation, but you won't be able indent/dedent past certain
 boundaries set by parens on previous lines.  As a courtesy, this mode also
@@ -1020,30 +1024,30 @@ maintains relative indentation of child elements when their parent expressions
 shift.
 </p>
 
-<p>
+<p lang="en">
 Here are some things that cannot be done in Indent Mode:
 </p>
 
 <div>
-<div class="caption"><strong>Tune indentation</strong> without worrying about crossing a paren boundary:</div>
+<div class="caption" lang="en"><strong>Tune indentation</strong> without worrying about crossing a paren boundary:</div>
 <textarea id="code-paren-tune">
 </textarea>
 </div>
 
 <div>
-<div class="caption"><strong>Avoid fracturing</strong> a multi-line expression when pushing its open-paren forward:</div>
+<div class="caption" lang="en"><strong>Avoid fracturing</strong> a multi-line expression when pushing its open-paren forward:</div>
 <textarea id="code-paren-frac">
 </textarea>
 </div>
 
 <div>
-<div class="caption"><strong>Indentation is maintained</strong> when parens shift, ensuring reversible operations:</div>
+<div class="caption" lang="en"><strong>Indentation is maintained</strong> when parens shift, ensuring reversible operations:</div>
 <textarea id="code-paren-comment">
 </textarea>
 </div>
 
 <div>
-<div class="caption"><strong>Nested expressions</strong> become automatically indented (temporary imbalances allowed):</div>
+<div class="caption" lang="en"><strong>Nested expressions</strong> become automatically indented (temporary imbalances allowed):</div>
 <textarea id="code-paren-wrap">
 </textarea>
 </div>
@@ -1054,21 +1058,21 @@ Here are some things that cannot be done in Indent Mode:
 
 <div class="wrapper">
 <section id="paren-how-it-works">
-<h3>How it works</h3>
+<h3 lang="en">How it works</h3>
 
-<p>
+<p lang="en">
 Paren Mode performs the following steps:
 </p>
 
 <ol>
-<li> Move close-parens at the start of a line to the end of the previous non-empty line.
-<li> Clamp the indentation of a line to the following range:
+<li lang="en"> Move close-parens at the start of a line to the end of the previous non-empty line.
+<li lang="en"> Clamp the indentation of a line to the following range:
   <ul>
     <li> min: x-position of the parent open-paren (if it exists)
     <li> max: x-position of the open-paren belonging to the previous non-empty line's last close-paren
   </ul>
-<li> Child elements of moved expressions should maintain their original relative indentation to them.
-<li> Cancel processing if there are any unmatched parens.
+<li lang="en"> Child elements of moved expressions should maintain their original relative indentation to them.
+<li lang="en"> Cancel processing if there are any unmatched parens.
 </ol>
 </section>
 </div>
@@ -1077,9 +1081,9 @@ Paren Mode performs the following steps:
 
 <div class="wrapper">
 <section id="switching-modes">
-<h3>Switching Modes</h3>
+<h3 lang="en">Switching Modes</h3>
 
-<p>
+<p lang="en">
 If there are paren imbalances in Paren Mode, the code is not processed, and you
 are prevented from switching to Indent Mode.  This safely quarantines the
 imbalances that could be misinterpreted in Indent Mode.  Thus, Paren Mode gives
@@ -1093,22 +1097,22 @@ and ready for Indent Mode should you choose to switch.
 
 <div class="wrapper">
 <section id="fixing-existing-files">
-<h3>Fixing existing files</h3>
+<h3 lang="en">Fixing existing files</h3>
 
-<p>
+<p lang="en">
 We must take parens literally when opening an existing file. Incidentally,
 Paren Mode is perfect for this job, so we preprocess existing files with it
 before allowing the switch to Indent Mode.
 </p>
 
-<div class="interact">
+<div class="interact" lang="en">
 <i class="fa fa-keyboard-o fa-lg"></i>
 <strong>Try it!</strong> Edit the code below on the left to see how it is formatted on the right.
 </div>
 
 <div class="two-col">
 <div class="col">
-<div class="caption"><strong>Input:</strong> Any existing file. Must be correctly balanced, but can be incorrectly formatted.</div>
+<div class="caption" lang="en"><strong>Input:</strong> Any existing file. Must be correctly balanced, but can be incorrectly formatted.</div>
 <textarea id="code-paren-input">
 (defn foo
   ([a]
@@ -1127,19 +1131,19 @@ before allowing the switch to Indent Mode.
 </div>
 
 <div class="col">
-<div class="caption"><strong>Output:</strong> Made ready for Parinfer by correcting indentation and moving close-parens.</div>
+<div class="caption" lang="en"><strong>Output:</strong> Made ready for Parinfer by correcting indentation and moving close-parens.</div>
 <textarea id="code-paren-output">
 </textarea>
 </div>
 </div>
 
-<p>
+<p lang="en">
 Notice that this process is NOT an invasive pretty-printer.  Newline characters
 are never added or removed.  It preserves as much as it can of the original
 code, only moving close-parens and changing indentation.
 </p>
 
-<p>
+<p lang="en">
 <em>Parinfer</em> should remain in Paren Mode if the file cannot be processed, due
 to the reasons stated in the previous section.
 </p>
@@ -1150,9 +1154,9 @@ to the reasons stated in the previous section.
 
 <div class="wrapper">
 <section id="knowing-when-parens-move-in-paren-mode">
-<h3>Knowing When Parens Move</h3>
+<h3 lang="en">Knowing When Parens Move</h3>
 
-<p>
+<p lang="en">
 As a courtesy, <em>Paren Mode</em> will not move your parens while your cursor
 is behind them. Just move your cursor away when you're done.  A helpful
 analogy might be to think of your cursor as a <em>paperweight</em> that keeps
@@ -1160,19 +1164,19 @@ your parens from blowing away.
 </p>
 
 <div>
-<div class="caption"><strong>Parens displaced</strong> only after they are balanced.</div>
+<div class="caption" lang="en"><strong>Parens displaced</strong> only after they are balanced.</div>
 <textarea id="code-displaced-after-balance">
 </textarea>
 </div>
 
 <div>
-<div class="caption"><strong>Parens not displaced</strong> if the cursor is behind it (allowing you to type).</div>
+<div class="caption" lang="en"><strong>Parens not displaced</strong> if the cursor is behind it (allowing you to type).</div>
 <textarea id="code-not-displaced-on-enter">
 </textarea>
 </div>
 
 <div>
-<div class="caption"><strong>Parens displaced</strong> if the cursor is no longer behind them.</div>
+<div class="caption" lang="en"><strong>Parens displaced</strong> if the cursor is no longer behind them.</div>
 <textarea id="code-displaced-after-cursor-leaves">
 </textarea>
 </div>
@@ -1184,7 +1188,7 @@ your parens from blowing away.
 
 <div class="wrapper">
 <section id="conclusions">
-<h2>Conclusions</h2>
+<h2 lang="en">Conclusions</h2>
 </section>
 </div>
 
@@ -1192,20 +1196,20 @@ your parens from blowing away.
 
 <div class="wrapper">
 <section id="benefits">
-<h3>Benefits</h3>
+<h3 lang="en">Benefits</h3>
 
-<p>
+<p lang="en">
 Inferring parentheses based on indentation seems to lead to simpler editing
 mechanics for Lisp code.  It leads to a system that keeps our code formatted
 well. And it allows us to use paredit-like features without hotkeys.
 </p>
 
-<p>
+<p lang="en">
 I think the biggest win is its potential to quell fear of managing end-of-line
 parens by enforcing a direct driving relationship with indentation.
 </p>
 
-<p>
+<p lang="en">
 And just like <em>Paredit</em> it maintains paren-balanced code.
 </p>
 </section>
@@ -1215,15 +1219,15 @@ And just like <em>Paredit</em> it maintains paren-balanced code.
 
 <div class="wrapper">
 <section id="downsides">
-<h3>Downsides</h3>
+<h3 lang="en">Downsides</h3>
 
-<p>
+<p lang="en">
 The rules for what happens when inserting/deleting parens must be learned.
 Also, the case necessitating a "Paren Mode" comes at the cost of forcing the
 user to understand when and how to switch editing modes.
 </p>
 
-<p>
+<p lang="en">
 Also, the preprocessor step performed when opening files will cause more
 formatting-related changes in your commit history when collaborating with
 others not using <em>Parinfer</em>.
@@ -1235,16 +1239,16 @@ others not using <em>Parinfer</em>.
 
 <div class="wrapper">
 <section id="final-thoughts">
-<h3>Final Thoughts</h3>
+<h3 lang="en">Final Thoughts</h3>
 
-<p>
+<p lang="en">
 Regardless of how we choose to edit our Lisp code, there seems to always be a
 balancing act between maintaining the simplicity of how we interact with the
 editor and accepting some editor complexity to gain automation over these
 powerful but numerous parens.
 </p>
 
-<p>
+<p lang="en">
 Building the interactive examples for this page has allowed me to explore how
 well Parinfer can play this balancing act, but only in a demo environment.
 The <em>real test</em> will come once it becomes available to major editors.
@@ -1266,16 +1270,16 @@ See <a href="#editor-plugins">editor plugins</a> for progress.
 
 <div class="wrapper">
 <section id="source-code">
-<h3>Source Code</h3>
+<h3 lang="en">Source Code</h3>
 
-<p>
+<p lang="en">
 The text formatting code is intended to be editor-agnostic.  It is implemented
 in straightforward, imperative JavaScript, optimized for speed and designed
 to be easy to port to other languages. There is a test suite which is also
 designed to be easy to port with all test cases represented in JSON files.
 </p>
 
-<p>
+<p lang="en">
 The editor demos on this site are created in CodeMirror with hooks to apply our
 formatters and update cursor position.  Source code for both the library and site
 are available on github:
@@ -1292,14 +1296,14 @@ are available on github:
 
 <div class="wrapper">
 <section id="editor-plugins">
-<h3>Editor Plugins</h3>
+<h3 lang="en">Editor Plugins</h3>
 
-<p>
+<p lang="en">
 Parinfer is still in early development. Several people have started integrating
 it into code editors at various stages of development.
 </p>
 
-<p>
+<p lang="en">
 <strong>Works in Progress:</strong>
 </p>
 
@@ -1343,7 +1347,7 @@ it into code editors at various stages of development.
   </li>
 </ul>
 
-<p>
+<p lang="en">
 Parinfer is available for some REPL environments as well:
 </p>
 
