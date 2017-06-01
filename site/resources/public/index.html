@@ -68,7 +68,7 @@
 Let's simplify the way we write Lisp...
 </p>
 <p class="subtitle" lang="ko">
-리스프 코드 작성하는 방법을 간편히 한다면...
+리스프 코드 작성법을 단순하게 해보죠...
 </p>
 
 <div class="interact" lang="en">
@@ -77,27 +77,27 @@ Let's simplify the way we write Lisp...
 </div>
 <div class="interact" lang="ko">
 <i class="fa fa-keyboard-o fa-lg"></i>
-<strong>직접 해봐요!</strong> 아래 애니메이션에 끼어들어 직접 써보세요. 바깥을 클릭하면 원래대로 복구됩니다.
+<strong>직접 해봐요!</strong> 아래 애니메이션에 끼어들어 직접 써보세요. 바깥쪽을 클릭하면 원래대로 복구합니다.
 </div>
 
 
 <div>
 <div class="caption" lang="en"><strong>Parinfer's "Indent Mode"</strong> rearranges parens when you change indentation:</div>
-<div class="caption" lang="ko"><strong>Parinfer의 "들여쓰기 모드"(Indent Mode)</strong>는 여러분이 들여쓰기를 바꾸는대로 괄호를 재정렬해줍니다.</div>
+<div class="caption" lang="ko"><strong>Parinfer의 "들여쓰기 모드"(Indent Mode)</strong>는 여러분이 들여쓰기를 바꾸는대로 괄호를 재정렬합니다.</div>
 <textarea id="code-intro-indent">
 </textarea>
 </div>
 
 <div>
 <div class="caption" lang="en"><strong>Insert or delete a line</strong> without rearranging parens:</div>
-<div class="caption" lang="ko">괄호를 건드릴 필요 없이, <strong>한 줄을 추가하거나 삭제해</strong>보세요:</div>
+<div class="caption" lang="ko">괄호는 건드리지 말고, <strong>한 줄을 추가하거나 삭제</strong>해보세요:</div>
 <textarea id="code-intro-insert">
 </textarea>
 </div>
 
 <div>
 <div class="caption" lang="en"><strong>Comment a line</strong> without rearranging parens:</div>
-<div class="caption" lang="ko">괄호를 신경쓰지 말고, <strong>주석 처리</strong>해보세요:</div>
+<div class="caption" lang="ko">괄호를 건드리지 말고, <strong>주석 처리</strong>해보세요:</div>
 <textarea id="code-intro-comment">
 </textarea>
 </div>
@@ -111,7 +111,7 @@ Let's simplify the way we write Lisp...
 
 <div>
 <div class="caption" lang="en"><strong>Preserve indentation</strong> when editing in "Paren Mode":</div>
-<div class="caption" lang="ko">"괄호 모드"(Paren Mode)에서는 <strong>들여쓰기를 유지</strong>한 채 편집하기 편해요:</div>
+<div class="caption" lang="ko">"괄호 모드"(Paren Mode)는 <strong>들여쓰기를 유지</strong>한 채 편집합니다:</div>
 <textarea id="code-intro-paren">
 </textarea>
 </div>
@@ -131,7 +131,9 @@ Lisp-editing easier for newcomers and experts alike, while still allowing
 existing plugins like Paredit to satisfy the need for more advanced operations.
 </p>
 <p lang="ko">
-  <span class="title">Parinfer</span>는 리스프 프로그래밍 언어를 위한 개념 증명 단계의 에디터 모드입니다. 리스프 코드를 작성할 때, 들여쓰기를 바꾸면 괄호를 자동으로 맞춰주며 그 반대로도 작동합니다. 리스프 입문자들도 전문가처럼 코드를 작성하기 쉽게 해주면서도, Paredit같은 기존 플러그인의 고급 기능을 같이 쓰는 것도 가능합니다.
+<span class="title">Parinfer</span>는 리스프 프로그래밍 언어를 위한 개념 증명 단계의 에디터 모드입니다.
+리스프 코드를 작성할 때, 들여쓰기를 바꾸면 괄호를 자동으로 맞춰주며 그 반대로도 작동합니다.
+리스프 입문자들도 전문가처럼 코드를 작성하기 쉽게 해주면서도, Paredit 같은 기존 플러그인의 고급 기능도 쓸 수 있습니다.
 </p>
 
 <ul lang="en">
@@ -143,7 +145,7 @@ existing plugins like Paredit to satisfy the need for more advanced operations.
   <li>소스 코드: <a href="http://github.com/shaunlebron/parinfer">http://github.com/shaunlebron/parinfer</a><br>
   <li>작성자: <a href="http://twitter.com/shaunlebron">@shaunlebron</a><br>
   <li>번역: <a href="http://twitter.com/hatemogi">@hatemogi</a><br>
-  <li>다운로드 (미완성): <a href="#editor-plugins">각종 에디터 플러그인</a>
+  <li>다운로드 (개발중): <a href="#editor-plugins">각종 에디터 플러그인</a>
 </ul>
 
 <div class="interact" lang="en">
@@ -163,6 +165,7 @@ Parinfer의 동기, 규칙, 효과를 더 자세히 알아보시려면 <strong>�
 <div class="wrapper">
 <section id="introduction">
 <h2 lang="en">Introduction</h2>
+<h2 lang="ko">소개</h2>
 
 <p lang="en">
 <strong>Lisp is often dismissed</strong> as an undesirable programming syntax
@@ -170,6 +173,13 @@ due to excessive parentheses.  Those who have adopted Lisp have long recognized 
 amazing strengths, but there is still a widely held uncertainty among newcomers about
 how or even <em>why</em> we must manage so many parens.  As a result, Lisp's
 unique power remains invisible to most under this guise of difficulty.
+</p>
+
+<p lang="ko">
+<strong>리스프는 흔히 무시되는데</strong>, 괄호가 너무 많은 프로그래밍 문법이 불편해 보이기 때문입니다.
+리스프를 이미 쓰고 있는 개발자들이야 그 놀라운 강력함을 인식하지만, 새로 입문하는 사람들은 어떻게, 그리고 당최
+<em>왜</em> 그 많은 괄호들을 다뤄야만 하는지 이해하기 어렵습니다. 그런 이유로, 리스프의 독특한 강점은
+어려워 보이는 겉모습에 가려져 잘 드러나지 않고 있습니다.
 </p>
 
 <p lang="en">
@@ -180,12 +190,25 @@ without parens) have faltered since they sacrifice some of Lisp's power that
 seasoned users aren't willing to part with.
 </p>
 
+<p lang="ko">
+<strong>입문자들은 기존 리스프 편집툴들에 불만입니다.</strong>
+전문가 수준의 에디터(Emacs, Vim)와 고급 단축키 (Paredit)는 강력하지만 배우기 어렵습니다.
+그렇다고 (리스프의 괄호를 배제한) 대안 문법을 쓰자니 리스프에 익숙한 사람들이 포기할 수 없는 강력한 부분을 희생해야 하기 때문에 망설여집니다.
+</p>
+
 <p lang="en">
 <strong>Parinfer is a new system</strong> that tries instead to fix this
 problem at its source.  We formally define the relationship between Parens and
 Indentation. With it, we create an intuitive editor mode to make paren
 management fun and easy without sacrificing power.  We demonstrate this through
 interactive proof-of-concept demos here, providing capabilities for:
+</p>
+
+<p lang="ko">
+<strong>Parinfer는 이 문제의 근원부터 해결하고자 하는 새로운 시스템</strong>입니다.
+우리는 괄호와 들여쓰기의 관계를 공식으로 정의합니다. 그 공식을 바탕으로 편집기 모드를 만들어서
+괄호의 강력함을 포기하지 않고도 괄호를 재밌고 쉽게 다룰 수 있도록 합니다.
+여기서 직접 체험하는 데모를 통해, 아래 기능을 보여드리겠습니다:
 </p>
 
 <ul lang="en" class="features">
@@ -195,6 +218,14 @@ interactive proof-of-concept demos here, providing capabilities for:
 <li> allowing
 <a href="http://danmidwood.com/content/2014/11/21/animated-paredit.html">Paredit</a>-like
 features without hotkeys
+</ul>
+
+<ul lang="ko" class="features">
+<li> 코드가 들여쓰기 규칙을 자동으로 지킵니다
+<li> 중첩되는 식을 들여쓰기로 자동으로 조정합니다
+<li> 식이 밀리거나 당겨지면 자동으로 들여쓰기를 유지합니다
+<li>
+<a href="http://danmidwood.com/content/2014/11/21/animated-paredit.html">Paredit</a>의 기능을 단축키 없이도 쓸 수 있습니다.
 </ul>
 
 <blockquote class="aside" lang="en">
@@ -207,6 +238,13 @@ use these extra delimiters to help visually separate certain constructs.
 </p>
 </blockquote>
 
+<blockquote class="aside" lang="ko">
+<p>
+<strong>알림: 여기서 "괄호"</strong>라 함은, <em>[대괄호]</em>나 <em>{중괄호}</em>
+를 포함합니다.  몇몇 리스프 (예. <a href="http://racket-lang.org/">Racket</a>,
+<a href="http://clojure.org/">Clojure</a>)는 이런 추가적인 괄호들을 써서 일부 언어의 구성 요소들을 구분하기 쉽게 합니다.
+</p>
+</blockquote>
 
 </section>
 </div>
@@ -216,6 +254,7 @@ use these extra delimiters to help visually separate certain constructs.
 <div class="wrapper">
 <section id="uncovering-lisp">
 <h3 lang="en">Uncovering Lisp</h3>
+<h3 lang="ko">리스프의 모든 것</h3>
 
 <p lang="en">
 Most programming languages have several syntax rules.  Lisp has one:
@@ -224,9 +263,16 @@ its arguments.  Thus, the language is simply a collection of compile- and
 run-time functions, trivianlly extensible.
 </p>
 
+<p lang="ko">
+대부분의 프로그래밍 언어에는 많은 문법 규칙이 있습니다. 리스프는 단 하나의 규칙이 있어요: 모든 것이 리스트입니다.
+리스트의 첫번째 요소는 함수의 이름이고, 나머지는 인수입니다. 그래서, 언어 전체가 단순히 컴파일할 때나 실행할 때의
+함수들의 모음에 불과하고, 아주 간단하게 확장할 수 있습니다.
+</p>
+
 <div class="two-col">
 <div class="col">
 <div class="caption" lang="en"><strong>C Style</strong> expressions:</div>
+<div class="caption" lang="ko"><strong>C 스타일</strong> 식:</div>
 <textarea id="code-c-expr">
 foo(1, 2, 3);
 const a = 1;
@@ -237,6 +283,7 @@ const b = (a == 1) ? 2 : 3;
 
 <div class="col">
 <div class="caption" lang="en"><strong>Lisp Style</strong> expressions:</div>
+<div class="caption" lang="ko"><strong>리스프 스타일</strong> 식:</div>
 <textarea id="code-lisp-expr">
 (foo 1 2 3)
 (def a 1)
@@ -254,9 +301,16 @@ can be jarring at first if you are used to curly braces in other languages
 being on their own lines:
 </p>
 
+<p lang="ko">
+하지만, 리스프는 긴 식의 마지막에 괄호가 잔뜩 뭉쳐 있기로 악명 높지요. 이런 들여쓰기
+<a href="https://en.wikipedia.org/wiki/Indent_style#Lisp_style">관습</a>은
+처음에 보기에, 다른 언어들에서 중괄호들이 한 줄씩 차지하는 것에 익숙했던 분들에게는, 거슬릴 수 있습니다:
+</p>
+
 <div class="two-col">
 <div class="col">
 <div class="caption" lang="en"><strong>C Style</strong> indentation (unusual in Lisp):</div>
+<div class="caption" lang="ko"><strong>C 스타일</strong> 들여쓰기 (리스프에서는 흔치 않음):</div>
 <textarea id="code-c-indent">
 (defn foo [a b]
   (let [
@@ -270,6 +324,7 @@ being on their own lines:
 
 <div class="col">
 <div class="caption" lang="en"><strong>Lisp Style</strong> indentation:</div>
+<div class="caption" lang="ko"><strong>리스프 스타일</strong> 들여쓰기:</div>
 <textarea id="code-lisp-indent">
 (defn foo [a b]
   (let [x (+ a b)]
@@ -284,9 +339,14 @@ rather than just parens. Readability is helped by employing a Python-like
 indentation style.  This achieves a sort of balance&mdash; Indentation allows
 you to <em>skim</em> while the parens allow you to <em>inspect</em>:</p>
 
+<p lang="ko">
+이런 관습에는 각 줄에 단순한 괄호 이상으로 내용에 대한 정보를 제공하겠다는 뜻이 있습니다.
+파이썬 방식의 들여쓰기로 가독성을 높일 수 있어요. 이렇게하면 일종의 균형이 잡히죠&mdash; 들여쓰기는 전체를 <em>대략 살펴보기</em> 좋게 해주면서도, 괄호로 <em>자세히 관찰하기 좋지요</em>:</p>
+
 <div class="two-col">
 <div class="col">
 <div class="caption" lang="en"><strong>Skim</strong> by focusing on indentation</div>
+<div class="caption" lang="ko">들여쓰기를 집중하며 <strong>대충 보세요</strong></div>
 <textarea id="code-skim">
 (defn foo [a b]
   (let [x (+ a b)]
@@ -296,6 +356,7 @@ you to <em>skim</em> while the parens allow you to <em>inspect</em>:</p>
 
 <div class="col">
 <div class="caption" lang="en"><strong>Inspect</strong> parens with your cursor when needed</div>
+<div class="caption" lang="ko">필요하면 괄호로 커서를 옮겨서 <strong>관찰합니다</strong></div>
 <textarea id="code-inspect">
 (defn foo [a b]
   (let [x (+ a b)]
@@ -312,15 +373,23 @@ helps here. Imagine each list in the previous example as a LEGO block
 stacked over its parent. Checking the sides to see the layers below is like
 checking the parens at the end of a line.
 </p>
+<p lang="ko">
+두 <em>관점</em>이 한꺼번에 잘 드러나지만, 한번에 하나씩 집중해야 합니다.
+<a href="https://twitter.com/paulg/status/588511912331055104">LEGO 비유</a>가
+도움이 되요. 위 예제의 각 리스트가 겹겹이 쌓인 하나의 레고 블록이라고 상상해보세요.
+아래 각 층의 옆면을 살펴보는 것이 마치 각 줄 끝의 괄호를 살펴보는 것과 같습니다.
+</p>
 
 <div class="two-col">
 <div class="col">
 <div class="caption" lang="en"><strong>Indentation</strong> implies nesting.</div>
+<div class="caption" lang="ko"><strong>들여쓰기</strong>가 중첩을 암시합니다.</div>
 <img class="lego-img" src="img/lego-indent.png">
 </div>
 
 <div class="col">
 <div class="caption" lang="en"><strong>Tilting</strong> clarifies nesting (close-parens shown).</div>
+<div class="caption" lang="ko"><strong>기울여 보면</strong> 중첩이 명백합니다 (닫는 괄호로 표시).</div>
 <img class="lego-img" src="img/lego-parens.png">
 </div>
 </div>
@@ -329,6 +398,9 @@ checking the parens at the end of a line.
 This is a physical analog to the way we read Lisp code.  Now let's look at the
 space of tooling solutions that we use for <em>writing</em> Lisp code and
 specifically how Parinfer can help.
+</p>
+<p lang="ko">
+이건 우리가 리스프 코드를 읽는 방법을 물리적으로 비유한 거죠. 이제 우리가 리스프 코드를 <em>작성하는</em> 데 쓰는 툴의 영역을 살펴보면서 어떻게 Parinfer가 도움이 될 건지 알아보겠습니다.
 </p>
 
 </section>
@@ -339,6 +411,7 @@ specifically how Parinfer can help.
 <div class="wrapper">
 <section id="tools-for-writing-lisp">
 <h3 lang="en">Tools for Writing Lisp</h3>
+<h3 lang="ko">리스프 작성 툴</h3>
 
 <p lang="en">
 In the previous section, we saw how Parens and Indentation provide two
@@ -346,9 +419,19 @@ perspectives for reading Lisp code.  Unfortunately, this incurs some redundancy
 when <em>writing</em> Lisp since we must edit both for every change, ensuring
 that one will correctly imply the other.
 </p>
+<p lang="ko">
+이제까지, 어떻게 괄호와 들여쓰기가 리스프 코드를 읽는 두 관점을 제공하는지 보았습니다.
+안타깝게도, 이 방식으로 리스프 코드를 <em>작성</em>할 때는 무언가 바꿀 때마다, 괄호와
+들여쓰기가 서로 잘 대응하게끔 둘 다를 편집해야하는 약간의 중복 작업이 필요합니다.
+</p>
 
 <p lang="en">
 There are existing tools to help with this.  To best represent how Parinfer
+compares to them, we will represent this complex space of tooling in a way that
+can be visually compared below.
+</p>
+<p lang="ko">
+이런 작업에 도움이 되는 기존 툴들이 있습니다.   To best represent how Parinfer
 compares to them, we will represent this complex space of tooling in a way that
 can be visually compared below.
 </p>
