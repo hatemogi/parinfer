@@ -4,6 +4,7 @@
     [cljs.core.async.macros :refer [go go-loop]])
   (:require
     [cljs.core.async :refer [<! timeout chan alts! close!]]
+    [parinfer-site.locale :as locale]
     goog.Uri))
 
 (def default-options
@@ -41,11 +42,13 @@
   (let [{:keys [x y anchor baseline]} (caption-side-attrs gear side)]
     (-> gear
         (.append "text")
+        (.attr "lang" "en")
         (.attr "text-anchor" anchor)
         (.attr "dominant-baseline" baseline)
         (.attr "x" x)
         (.attr "y" y)
-        (.text text))))
+        (.text (locale/text text)))))
+
 
 (defn make-gear
   [svg drag-behavior {:keys [factor x y angle classes caption

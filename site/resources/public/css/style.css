@@ -23,6 +23,11 @@ body {
   font-size: 0.9em;
 }
 
+#locale {
+  text-align: center;
+  font-size: 0.9em;
+}
+
 a.header-link {
   color: #CCC;
   position: absolute;

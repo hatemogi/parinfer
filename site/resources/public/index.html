@@ -23,9 +23,10 @@
   </div>
   <div class="credits" lang="ko">
     번역
-    <a href="http://twitter.com/hatemogi">@hatemogi</a> |
+    <a href="https://medium.com/@hatemogi">@hatemogi</a> |
     <a href="https://github.com/hatemogi/parinfer">GitHub</a>
   </div>
+  <div id="locale">Locale</div>
   <div id="toc">
     <span class="caption">building table of contents...</a>
   </div>
@@ -104,7 +105,7 @@ Let's simplify the way we write Lisp...
 
 <div>
 <div class="caption" lang="en"><strong>Basic Paredit without hotkeys</strong> thanks to simple paren inference. (wrap, splice, slurp, barf)</div>
-<div class="caption" lang="ko">괄호추론 기능 덕분에 <strong>별도 단축키 없이도 Paredit의 기본 기능</strong>(wrap, splice, slurp, barf)을 쓸 수 있어요.</div>
+<div class="caption" lang="ko">괄호추정 기능 덕분에 <strong>별도 단축키 없이도 Paredit의 기본 기능</strong>(wrap, splice, slurp, barf)을 쓸 수 있어요.</div>
 <textarea id="code-intro-paredit">
 </textarea>
 </div>
@@ -260,7 +261,7 @@ use these extra delimiters to help visually separate certain constructs.
 Most programming languages have several syntax rules.  Lisp has one:
 everything is a list.  The first element is a function name, and the rest are
 its arguments.  Thus, the language is simply a collection of compile- and
-run-time functions, trivianlly extensible.
+run-time functions, trivially extensible.
 </p>
 
 <p lang="ko">
@@ -346,7 +347,7 @@ you to <em>skim</em> while the parens allow you to <em>inspect</em>:</p>
 <div class="two-col">
 <div class="col">
 <div class="caption" lang="en"><strong>Skim</strong> by focusing on indentation</div>
-<div class="caption" lang="ko">들여쓰기를 집중하며 <strong>대충 보세요</strong></div>
+<div class="caption" lang="ko">들여쓰기에 집중하며 <strong>대충 보세요</strong></div>
 <textarea id="code-skim">
 (defn foo [a b]
   (let [x (+ a b)]
@@ -420,9 +421,9 @@ when <em>writing</em> Lisp since we must edit both for every change, ensuring
 that one will correctly imply the other.
 </p>
 <p lang="ko">
-이제까지, 어떻게 괄호와 들여쓰기가 리스프 코드를 읽는 두 관점을 제공하는지 보았습니다.
-안타깝게도, 이 방식으로 리스프 코드를 <em>작성</em>할 때는 무언가 바꿀 때마다, 괄호와
-들여쓰기가 서로 잘 대응하게끔 둘 다를 편집해야하는 약간의 중복 작업이 필요합니다.
+이제까지, 어떻게 괄호와 들여쓰기가 리스프 코드를 읽는 두 관점을 지원하는지 보았습니다.
+안타깝게도, 이 방식으로 리스프 코드를 <em>작성</em>할 때는, 무언가 바꿀 때마다 괄호와
+들여쓰기가 서로 잘 대응하게끔 둘 다 편집해야 하는 중복 작업이 필요합니다.
 </p>
 
 <p lang="en">
@@ -431,14 +432,16 @@ compares to them, we will represent this complex space of tooling in a way that
 can be visually compared below.
 </p>
 <p lang="ko">
-이런 작업에 도움이 되는 기존 툴들이 있습니다.   To best represent how Parinfer
-compares to them, we will represent this complex space of tooling in a way that
-can be visually compared below.
+이런 작업을 도와주는 기존 툴들이 있습니다. Parinfer가 다른 툴들과 어떻게 다른지 잘 표현하기 위해, 아래처럼 시각적인 비유를 들어보겠습니다.
 </p>
 
 <div class="interact" lang="en">
 <i class="fa fa-gear fa-lg"></i>
 <strong>The black gear</strong> represents the current action we are taking.
+</div>
+<div class="interact" lang="ko">
+<i class="fa fa-gear fa-lg"></i>
+<strong>검은 톱니바퀴</strong>가 지금 우리가 하는 행위를 나타냅니다.
 </div>
 
 <p lang="en">
@@ -446,6 +449,9 @@ can be visually compared below.
 our parens are balanced after inserting or removing them.  Then, we adjust the
 indentation to match it in kind.  This back-and-forth happens for most editing
 tasks.
+</p>
+<p lang="ko">
+리스프 코드를 편집하는 <strong>지루하고 기본적인</strong> 방법은 괄호를 넣거나 빼고난 뒤에 균형이 잘 맞았는지 일일이 확인하는 것입니다. 그러고나서 들여쓰기를 조정하지요. 이런 앞뒤로 왔다 갔다 해야하는 일이 대부분의 편집 작업에 일어납니다.
 </p>
 
 <div class="gearbox" id="naive-gears">
@@ -458,6 +464,9 @@ balanced way through special hotkeys.  And <em>Auto-indent</em> allows you to
 auto-correct indentation of selected lines when desired.  This automates
 the tasks, but the back-and-forth actions are still manually triggered.</p>
 
+<p lang="ko">
+이 작업의 일부를 <strong>기존 툴들이 자동으로</strong> 해줍니다. 예를 들어,  <em>Paredit</em>는 특별한 단축키를 써서 괄호의 위치를 바꾸거나 추가하는 일의 균형을 잡아줍니다. 그리고, <em>Auto-indent</em>는 원하는 선택영역의 들여쓰기를 자동으로 고쳐줍니다. 이런 왔다갔다 하는 작업을 자동으로 해주기는 하지만, 여전히 수동으로 지시해야 하지요.</p>
+
 <div class="gearbox" id="helper-gears">
 </div>
 
@@ -466,6 +475,9 @@ the tasks, but the back-and-forth actions are still manually triggered.</p>
 type of automation by naturally keeping Parens and Indentation in lockstep.  It
 formally <em>infers</em> changes to one based on the other.  The back-and-forth
 actions have been reduced with special modes, which we will explore next.
+</p>
+<p lang="ko">
+<strong>Parinfer는 괄호와 들여쓰기 작업을 한꺼번에 자연스럽게 <em>합쳐서 단순화</em></strong>한 새로운 툴입니다. 공식을 써서 한쪽에서 작업이 일어나면 다른쪽을 어떻게 바꿔야하는지  <em>추정</em>합니다. 다음부터 살펴볼 특별한 모드들이 이 오며가며 해야하는 일들을 줄여줍니다.
 </p>
 
 <div class="gearbox" id="parinfer-gears">
@@ -487,9 +499,15 @@ simple and predictable, we have the user explicitly choose the degree of
 freedom that <em>they</em> want full control of, while relinquishing some
 control of the other to <em>Parinfer</em>.
 </p>
+<p lang="ko">
+앞선 시각화로 보았듯, 괄호와 띄어쓰기가 잘 맞도록 바꿔야 할 내용을 Parinfer가 추정합니다. 간단하고 예측할 수 있게 추정하기 위해, 우리는 <em>Parinfer</em>가 나머지 작업들을 어느 정도 알아서 하게 하면서도, <em>사용자</em>가 통제하고 싶은 정도를 명시적으로 선택할 수 있게했습니다.
+</p>
 
 <p lang="en">
 Thus, Parinfer consists of two modes:
+</p>
+<p lang="ko">
+그래서, Parinfer에는 두 가지 모드가 있습니다:
 </p>
 
 <ol>
@@ -497,9 +515,15 @@ Thus, Parinfer consists of two modes:
 <strong>Indent Mode</strong> gives you full control of indentation, while
 Parinfer corrects parens.<br>
 </li>
+<li lang="ko">
+<strong>들여쓰기 모드(Indent Mode)</strong>는 여러분이 들여쓰기를 직접 처리하고, Parinfer가 괄호를 알아서 고치도록 합니다.<br>
+</li>
 <li lang="en">
 <strong>Paren Mode</strong> gives you full control of parens, while Parinfer
 corrects indentation.<br>
+</li>
+<li lang="ko">
+<strong>괄호 모드(Paren Mode)</strong>는 여러분이 괄호를 원하는대로 작성하고, Parinfer가 들여쓰기를 알아서 수정합니다.<br>
 </li>
 </ol>
 
@@ -507,14 +531,23 @@ corrects indentation.<br>
 <i class="fa fa-lightbulb-o fa-lg"></i>
 <strong>To make this easier</strong>, Indent Mode is default. Paren Mode can be an advanced option.
 </div>
+<div class="interact" lang="ko">
+<i class="fa fa-lightbulb-o fa-lg"></i>
+<strong>간단히 말하면</strong>, 들여쓰기 모드(Indent Mode)가 기본이고. 괄호 모드(Paren Mode)는 고급 기능입니다.
+</div>
 
 <p lang="en">
 Some noteworthy unintended use-cases which we will explore later:
 </p>
+<p lang="ko">
+의도한 것은 아니지만 언급할 가치가 있는 아래 용례를 잠시 후 살펴보겠습니다:
+</p>
 
 <ul>
   <li lang="en">Indent Mode allows Paredit-like features without hotkeys.</li>
+  <li lang="ko">들여쓰기 모드는 Paredit의 기능들을 별도 단축키 없이도 쓸 수 있게 해줍니다.</li>
   <li lang="en">Paren Mode can be used to fix incorrectly indented files before using with Indent Mode.</li>
+  <li lang="ko">괄호 모드를 들여쓰기가 잘못된 파일을 고치는데 쓰고나서 들여쓰기 모드를 쓸 수 있습니다.</li>
 </ul>
 
 </section>
@@ -525,20 +558,31 @@ Some noteworthy unintended use-cases which we will explore later:
 <div class="wrapper">
 <section id="mathematical-foundation">
 <h3 lang="en">Mathematical Foundation</h3>
+<h3 lang="ko">수학적 기반</h3>
 
 <div class="interact" lang="en">
 <i class="fa fa-rocket fa-lg"></i>
 <strong>Feel free to <a href="#indent-mode">skip this</a></strong> if you have no interest in the math that makes Parinfer possible.
+</div>
+<div class="interact" lang="ko">
+<i class="fa fa-rocket fa-lg"></i>
+Parinfer의 수학적 바탕에 관심이 없다면 편하게 <strong><a href="#indent-mode">건너뛰어</a></strong> 읽어주세요.
 </div>
 
 <p lang="en">
 The foundation of Parinfer relies on a few somewhat formalized definitions and
 properties:
 </p>
+<p lang="ko">
+Parinfer의 기초는 어느정도 정형화해 정의한 공식과 속성에 기반합니다:
+</p>
 
 <div class="math-page mathjax">
 <p lang="en">
 We wish to define properties that each Parinfer mode should exhibit.
+</p>
+<p lang="ko">
+각 Parinfer 모드가 지켜야 하는 속성들을 정의하고자 합니다.
 </p>
 
 <p lang="en">
@@ -547,6 +591,14 @@ With the following definitions:
   <li>$I$ = (Indent Mode) function accepting code text and returning new text.</li>
   <li>$P$ = (Paren Mode) function accepting code text and returning new text.</li>
   <li>$R$ = (Reader) function accepting code text and returning its AST data.</li>
+</ul>
+</p>
+<p lang="ko">
+이하 정의에서:
+<ul>
+  <li>$I$ = (들여쓰기 모드) 함수는 코드 텍스트를 받아서 새 텍스트를 반환한다.</li>
+  <li>$P$ = (괄호 모드) 함수는 코드 텍스트를 받아서 새 텍스트를 반환한다.</li>
+  <li>$R$ = (읽기) 함수는 코드 텍스트를 받아서 그 코드의 AST 데이터를 반환한다.</li>
 </ul>
 </p>
 
@@ -572,20 +624,42 @@ The following should be true:
         </div>
     </ul>
 </ul>
+<p lang="ko">
+아래가 참이어야합니다:
+<ul>
+  <li>let $y = P(x)$
+        <div class="side-note">
+          $\leftarrow$ $x$에 괄호 모드를 적용해서 $y$를 구할 때
+        </div>
+    <ul>
+      <li>$\Longrightarrow R(x) = R(y)$
+        <div class="side-note">
+          $\leftarrow$ 괄호 모드가 AST를 바꾸지 않는다.
+        </div>
+      <li>$\Longrightarrow P(y) = y$
+        <div class="side-note">
+          $\leftarrow$ 괄호 모드를 여러번 적용해도 같다(idempotent).
+        </div>
+      <li>$\Longrightarrow I(y) = y$
+        <div class="side-note">
+          $\leftarrow$ 들여쓰기 모드가 괄호 모드의 결과를 바꿔서는 안된다
+        </div>
+    </ul>
+</ul>
 
 <ul>
   <li>let $z = I(x)$
         <div class="side-note">
-          $\leftarrow$ run Indent-Mode on $x$ to get $z$
+          $\leftarrow$ $x$에 들여쓰기모드를 적용해서 $z$를 구할 때
         </div>
     <ul>
       <li>$\mathrel{\rlap{\hskip .5em/}}\Longrightarrow R(x) = R(z)$
         <div class="side-note">
-          $\leftarrow$ Indent-Mode may change the AST (by design)
+          $\leftarrow$ 들여쓰기 모드가 AST를 바꿀 수도 있다 (의도한 것)
         </div>
       <li>$\Longrightarrow I(z) = z$
         <div class="side-note">
-          $\leftarrow$ Indent-Mode should be idempotent
+          $\leftarrow$ 들여쓰기 모드는 여러번 적용해도 같다(idempotent)
         </div>
     </ul>
 </ul>
@@ -601,14 +675,27 @@ Parinfer corrects indentation or parens simply by choosing correct values for
 $i_n$ or $p_n$ (defined later) to satisfy this invariant:
 </p>
 
+<p class="mathjax" lang="ko">
+두 모드가 처리하는 작업은 리스프 코드로서 옳바른 포맷이도록 하는 정의에 의존합니다.
+우리는 코드의 매 라인에 대해 항상 참인 불변식을 작성해서 $i_n$ 또는 $p_n$ (잠시 후 정의)를
+선택하는 간단한 작업만으로도 Parinfer가 들여쓰기나 괄호를 수정할 수 있도록 하는데, 그 불변식은 다음과 같습니다:
+</p>
+
 <ul class="mathjax" lang="en">
   <li><strong>Indent Mode</strong> forces correct values of $p_n$</li>
   <li><strong>Paren Mode</strong> forces correct values of $i_n$</li>
+</ul>
+<ul class="mathjax" lang="ko">
+  <li><strong>들여쓰기 모드</strong>는 $p_n$의 옳은 값을 강제한다</li>
+  <li><strong>괄호 모드</strong>는 $i_n$의 옳은 값을 강제한다</li>
 </ul>
 
 <p lang="en">
 The following is a concise reference (not a guide) to establishing this
 invariant that Parinfer's modes rely on.
+</p>
+<p lang="ko">
+아래는 두 Parinfer 모드가 바탕으로 삼는 명시적 참조 (가이드는 아님)입니다.
 </p>
 
 <div class="math-page mathjax">
@@ -616,11 +703,17 @@ invariant that Parinfer's modes rely on.
 We wish to define necessary conditions for determining if a given file of Lisp
 code is "correctly formatted".
 </p>
+<p lang="ko">
+주어진 파일의 리스프 코드가 "형식에 맞게 작성"됐다고 여기는데 필요한 조건을 정의하고자 한다.
+</p>
 
 <p lang="en">
 We start with a clarification that we only consider non-empty lines (i.e. lines
 that have at least one non-whitespace, non-comment token).  Thus, all following
 references to line number $n$ will refer to the $n$th non-empty line.
+</p>
+<p lang="ko">
+여기서는 내용이 있는 라인들(공백문자나 주석이 아닌 무언가가 하나라도 있는 라인들)만을 고려한다. 즉, 줄번호 $n$은 $n$번째 빈줄 아닌 라인을 가르킨다.
 </p>
 
 <p lang="en">
@@ -641,6 +734,24 @@ $s_n$ = (stack) index of x-positions of all open-parens unclosed before $t_n[-p_
 </li>
 </ul>
 </p>
+<p lang="ko">
+아래를 정의하고 계속하자:
+
+<ul>
+<li>
+$t_n$ = (tokens) $n$째 줄의 비공백, 비주석 토큰의 인덱스
+</li>
+<li>
+$i_n$ = (indentation) $t_n[0]$의 x좌표
+</li>
+<li>
+$p_n$ = (parens) $t_n$의 끝에 있는 닫는 괄호의 수
+</li>
+<li>
+$s_n$ = (stack) $t_n[-p_n]$에 앞서 닫히지 않은 모든 괄호의 x좌표들 전부
+</li>
+</ul>
+</p>
 
 <p lang="en">
 Next, we define a function which determines if a line's indentation is valid:
@@ -648,6 +759,15 @@ Next, we define a function which determines if a line's indentation is valid:
 <ul>
   <li>$f(i,p,s) = ( x_\text{min} \lt i \leq x_\text{max} )$
     <div class="side-note">$\leftarrow$ verifies indentation is within a threshold defined below</div>
+  </li>
+</ul>
+</p>
+<p lang="ko">
+그리고, 특정 라인의 들여쓰기가 옳바른지 판단하는 함수를 정의하자:
+
+<ul>
+  <li>$f(i,p,s) = ( x_\text{최소} \lt i \leq x_\text{최대} )$
+    <div class="side-note">$\leftarrow$ 아래 정의한 임계 안에서 들여쓰기가 잘 됐는지 검증</div>
   </li>
 </ul>
 </p>
@@ -667,13 +787,28 @@ where:
   </li>
 </ul>
 </p>
+<p lang="ko">
+where:
+<ul>
+  <li>$x_\text{최소} = \begin{cases} s[-p-1] & |s| > p\text{인 경우}, \\ -1 & \text{그 외} \end{cases}$
+    <div class="side-note">
+      $\leftarrow$ 상위의 리스트에 열린 괄호가 있다면 그 x좌표
+    </div>
+  </li>
+  <li>$x_\text{최대} = \begin{cases} s[-p] & \text{만약 } p \gt 0인 경우, \\ \infty & \text{그 외} \end{cases}$
+    <div class="side-note">
+      $\leftarrow$ 앞선 형제가 있는데 리스트라면 그 리스트의 열린 괄호의 x좌표
+    </div>
+  </li>
+</ul>
+</p>
 
 
 <p lang="en">
 Finally, we define that a file of Lisp code is "correctly formatted" if:
 
 <ol>
-  <li lang="en">for every line $n > 0$:
+  <li>for every line $n > 0$:
     <ul>
       <li>$t_n[0] \ne $ ")", and
         <div class="side-note">
@@ -687,7 +822,7 @@ Finally, we define that a file of Lisp code is "correctly formatted" if:
       </li>
     </ul>
   </li>
-  <li lang="en">and for the last line $N$
+  <li>and for the last line $N$
     <ul>
       <li>$|s_N| = p_N$
         <div class="side-note">
@@ -698,10 +833,51 @@ Finally, we define that a file of Lisp code is "correctly formatted" if:
   </li>
 </ol>
 </p>
+<p lang="ko">
+마지막으로, 만약 이하의 조건이 성립하면 파일의 리스프 코드가 "옳은 형식"으로 되어있다고 정의한다:
+
+<ol>
+  <li>$n > 0$인 모든 라인에 대해:
+    <ul>
+      <li>$t_n[0] \ne $ ")", 이고
+        <div class="side-note">
+          $\leftarrow$ 닫는 괄호로 시작하는 라인이 없어야 한다
+        </div>
+      </li>
+      <li>$f(i_n, p_{n-1}, s_{n-1})$ 이 참이다
+        <div class="side-note">
+          $\leftarrow$ 위에 정의한 들여쓰기 임계치
+        </div>
+      </li>
+    </ul>
+  </li>
+  <li>그리고 마지막 라인 $N$에 대해
+    <ul>
+      <li>$|s_N| = p_N$
+        <div class="side-note">
+          $\leftarrow$ 열린 괄호모두가 마지막줄에 닫혀야 한다
+        </div>
+      </li>
+    </ul>
+  </li>
+</ol>
+</p>
 
 </div>
 
 <p lang="en">
+These rules are necessary and sufficient for determining when indentation is
+what we consider "unambiguous", but they are not sufficient in determining if
+code is "pretty". For example:
+
+<ul>
+<li lang="en">single-line files are okay</li>
+<li lang="en">"tab" lengths are flexible (one space, two spaces, etc)</li>
+<li lang="en">indentation of sibling lines are not required to be aligned</li>
+</ul>
+</p>
+<p lang="ko">
+:TODO:
 These rules are necessary and sufficient for determining when indentation is
 what we consider "unambiguous", but they are not sufficient in determining if
 code is "pretty". For example:

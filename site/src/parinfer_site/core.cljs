@@ -17,7 +17,8 @@
     [parinfer-site.state :refer [state]]
     [parinfer-site.toc :as toc]
     [parinfer-site.editor-ui :as editor-ui]
-    [parinfer-site.gears :refer [create-gears!]]))
+    [parinfer-site.gears :refer [create-gears!]]
+    [parinfer-site.locale :as locale]))
 
 (enable-console-print!)
 
@@ -269,6 +270,7 @@
 
 (defn render-index! []
   (toc/init!)
+  (locale/init!)
   (create-index-editors!)
   (create-index-gears!)
   (load-index-anims!)
